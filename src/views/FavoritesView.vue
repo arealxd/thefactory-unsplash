@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import HeaderComponent from '@/components/HeaderComponent.vue'
 import { ref } from 'vue'
+import type { ImageResponse } from '@/types/Image'
 
-const favoritePhotos = ref()
+const favoritePhotos = ref<ImageResponse[]>()
 
 if (localStorage.getItem('favorites')) {
   favoritePhotos.value = JSON.parse(localStorage.getItem('favorites')!)
@@ -15,11 +16,11 @@ if (localStorage.getItem('favorites')) {
   <HeaderComponent />
   <div class="container">
     <h1 class="favorites-title">
-      {{ favoritePhotos.length === 0 ? 'Избранного пока нет' : 'Избранное' }}
+      {{ favoritePhotos?.length === 0 ? 'Избранного пока нет' : 'Избранное' }}
     </h1>
     <div class="images">
-      <router-link v-for="photo in favoritePhotos" :key="photo?.id" :to="'/details/' + photo?.id">
-        <img class="image" :src="photo?.urls?.regular" alt="" />
+      <router-link v-for="photo in favoritePhotos" :key="photo.id" :to="'/details/' + photo.id">
+        <img class="image" :src="photo.urls.regular" alt="" />
       </router-link>
     </div>
   </div>

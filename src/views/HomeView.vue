@@ -2,12 +2,13 @@
 import HeaderComponent from '@/components/HeaderComponent.vue'
 import { ref } from 'vue'
 import axios from 'axios'
+import type { ImageResponse } from '@/types/Image'
 
 const loading = ref(true)
 const notFound = ref(false)
-const photos = ref()
+const photos = ref<ImageResponse[]>()
 
-const setSearchImages = (search: Object) => {
+const setSearchImages = (search: ImageResponse[]) => {
   if (search) {
     photos.value = search
     loading.value = false
